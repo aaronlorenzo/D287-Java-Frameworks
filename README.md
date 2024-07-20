@@ -71,6 +71,81 @@ F.  Add a “Buy Now” button to your product list. Your “Buy Now” button m
 •  The button should decrement the inventory of that product by one. It should not affect the inventory of any of the associated parts.
 •  Display a message that indicates the success or failure of a purchase.
 
+File name: mainscreen.html
+Line 177: Added a line to create "Buy Now" button next to Product Add/Delete interface.
+<a th:href="@{/buyProduct(productID=${tempProduct.id})}" class="btn btn-primary btn-sm mb-3">Buy Now</a>
+
+File name: BuyProductController.java
+Lines 1-38: New Controller for "Buy Product" button on mainscreen.html:
+package com.example.demo.controllers;
+
+import com.example.demo.domain.Product;
+import com.example.demo.repositories.ProductRepository;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.RequestParam;
+
+import java.util.Optional;
+
+@Controller
+public class BuyProductController {
+
+    @Autowired
+    private ProductRepository productRepository;
+
+    @GetMapping("/buyProduct")
+    public String buyProduct(@RequestParam("productID") Long theId, Model theModel) {
+        Optional<Product> productToBuy = productRepository.findById(theId);
+
+        if (productToBuy.isPresent()) { // Check if product in catalog
+            Product product = productToBuy.get();
+
+            if (product.getInv() > 0) { // Check if product still in stock
+                product.setInv(product.getInv() - 1); // Decrement stock
+                productRepository.save(product); // Save to product database
+
+                return "/confirmbuysuccess"; // Successful purchase
+            } else {
+                return "/confirmbuyfailure"; // Purchase failed: out of stock
+            }
+        } else {
+            return "/confirmbuyfailure"; // Purchase failed: product not found
+        }
+    }
+}
+File name: confirmbuysuccess.html
+Lines 1-13: New code which displays "Your purchase was successful" and thanks in response to a successful purchase of a product.
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Purchase Successful</title>
+</head>
+<body>
+    <h1>Your purchase was successful. We hope you enjoy your treats! Thanks for shopping with us!</h1>
+    <a href="http://localhost:8080/">Link to Main Screen</a>
+</body>
+</html>
+
+
+File name: confirmbuyfailure.html
+Lines 1-14: New code which displays "Your purchase did not succeed. Product may be out of stock. Please try again or contact us for assistance."
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Failure to complete purchase</title>
+</head>
+<body>
+    <h1>Your purchase did not succeed. Product may be out of stock. Please try again or contact us for assistance.</h1>
+    <a href="http://localhost:8080/">Link to Main Screen</a>
+</body>
+</html>
+
+
+
 
 G.  Modify the parts to track maximum and minimum inventory by doing the following:
 •  Add additional fields to the part entity for maximum and minimum inventory.
