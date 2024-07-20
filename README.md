@@ -16,6 +16,14 @@ file name: mainscreen.html
 
 
 D.  Add an “About” page to the application to describe your chosen customer’s company to web viewers and include navigation to and from the “About” page and the main screen.
+file name: mainscreen.html
+Line 112-Added an "About" button. <a href="/about" class="btn btn-info">About Computer Parts Emporium</a>
+
+file name: MainScreenController.java
+Lines 53-56- Added a new mapping for the "About" page.
+
+file name: about.html
+Lines 1 - 128: Created a new "About" page with company information and navigation back to the main screen, with HTML layout and styling copied from mainscreen.html styling.
 
 
 E.  Add a sample inventory appropriate for your chosen store to the application. You should have five parts and five products in your sample inventory and should not overwrite existing data in the database.
