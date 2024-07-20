@@ -143,11 +143,11 @@ public class BootStrapData implements CommandLineRunner {
         outsourcedPartRepository.saveAll(outsourcedParts);
 
         // Adding Products
-        Product gamingPC = new Product("Gaming PC",1200.00,5);
-        Product workstationPC= new Product("Workstation PC",1500.00,3);
-        Product htpc= new Product("Home Theater PC",800.00,4);
-        Product laptop= new Product("Gaming Laptop",1000.00,2);
-        Product server= new Product("Home Server",700.00,3);
+        Product gamingPC = new Product("Gaming PC", 1200.00, 5);
+        Product workstationPC = new Product("Workstation PC", 1500.00, 3);
+        Product htpc = new Product("Home Theater PC", 800.00, 4);
+        Product laptop = new Product("Gaming Laptop", 1000.00, 2);
+        Product server = new Product("Home Server", 700.00, 3);
 
         productRepository.save(gamingPC);
         productRepository.save(workstationPC);
@@ -155,12 +155,10 @@ public class BootStrapData implements CommandLineRunner {
         productRepository.save(laptop);
         productRepository.save(server);
 
-
         System.out.println("Started in Bootstrap");
-        System.out.println("Number of Products"+productRepository.count());
+        System.out.println("Number of Products: " + productRepository.count());
         System.out.println(productRepository.findAll());
-        System.out.println("Number of Parts"+partRepository.count());
+        System.out.println("Number of Parts: " + partRepository.count());
         System.out.println(partRepository.findAll());
-
     }
 }

@@ -9,8 +9,6 @@ file name: mainscreen.html
  Line 13-102- Added CSS styling of page (background color, color, margin, etc)
  Line 104-Title and Header: Changed the shop name to "Computer Parts Emporium".
  Line 110-Header Image: Added a header image specific to computer parts.
- Line 114-Section Headers: Updated "Parts" to "Individual Components" 
- Line 146-and "Products" to "Custom Builds".
  Line 182-184--Footer: Added a footer with the business name and copyright date.
 
 
@@ -145,14 +143,41 @@ Lines 1-14: New code which displays "Your purchase did not succeed. Product may 
 </html>
 
 
-
-
 G.  Modify the parts to track maximum and minimum inventory by doing the following:
 •  Add additional fields to the part entity for maximum and minimum inventory.
 •  Modify the sample inventory to include the maximum and minimum fields.
 •  Add to the InhousePartForm and OutsourcedPartForm forms additional text inputs for the inventory so the user can set the maximum and minimum values.
 •  Rename the file the persistent storage is saved to.
 •  Modify the code to enforce that the inventory is between or at the minimum and maximum value.
+
+File Name: InhousePart.java
+Lines 18-19:
+Change:
+Added fields for minInv (minimum inventory) and maxInv (maximum inventory) to the InhousePart entity.
+
+File Name: InhousePartServiceImpl.java
+Lines 35-49:
+Change:
+Added a validateInventory method to ensure that minimum and maximum inventory values are non-negative and that minInv is less than or equal to maxInv.
+
+File Name: BootstrapData.java
+Lines 146-150:
+Change:
+Updated the sample data to include minInv and maxInv for each part.
+
+File Name: InhousePartForm.html
+
+Lines 25-32:
+Change:
+Added input fields for minInv and maxInv to the form for adding and editing InhouseParts.
+
+File Name: OutsourcedPartForm.html (Similar changes)
+
+File Name: application.properties
+Line 6:
+Change:
+Renamed the persistent storage file to reflect the new schema.
+"spring.datasource.url=jdbc:h2:file:~/computer-parts-db"
 
 
 H.  Add validation for between or at the maximum and minimum fields. The validation must include the following:
