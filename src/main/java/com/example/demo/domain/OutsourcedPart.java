@@ -24,4 +24,17 @@ String companyName;
     public void setCompanyName(String companyName) {
         this.companyName = companyName;
     }
+
+    public void setMin(int i) {
+    }
+
+    public void setMax(int i) {
+    }
+
+    public void setMinInv(int i) {
+    }
+
+    public void setMaxInv(int i) {
+
+    }
 }

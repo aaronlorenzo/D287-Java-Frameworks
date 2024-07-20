@@ -28,8 +28,42 @@ Lines 1 - 128: Created a new "About" page with company information and navigatio
 
 E.  Add a sample inventory appropriate for your chosen store to the application. You should have five parts and five products in your sample inventory and should not overwrite existing data in the database.
 
+Changes Made in BootstrapData.java line 36-159:
 
-Note: Make sure the sample inventory is added only when both the part and product lists are empty. When adding the sample inventory appropriate for the store, the inventory is stored in a set so duplicate items cannot be added to your products. When duplicate items are added, make a “multi-pack” part.
+Cleared Existing Data:
+
+All records from InhousePart, OutsourcedPart, and Product repositories are deleted to ensure a clean slate.
+Inhouse Parts Added:
+
+CPU Cooler: ID 901, $30.00, Inventory: 10
+Motherboard: ID 902, $150.00, Inventory: 8
+Graphics Card: ID 903, $300.00, Inventory: 5
+Power Supply: ID 904, $75.00, Inventory: 15
+SSD Drive: ID 905, $120.00, Inventory: 20
+These are saved in the InhousePartRepository.
+
+Outsourced Parts Added:
+
+RAM Module: Company: Corsair, ID 100, $80.00, Inventory: 25
+HDD 1TB: Company: Seagate, ID 101, $50.00, Inventory: 30
+SSD 512GB: Company: Western Digital, ID 102, $90.00, Inventory: 20
+Gaming Mouse: Company: Logitech, ID 103, $40.00, Inventory: 15
+Mechanical Keyboard: Company: Razer, ID 104, $120.00, Inventory: 10
+These are saved in the OutsourcedPartRepository.
+
+Products Added:
+
+Gaming PC: $1200.00, Inventory: 5
+Workstation PC: $1500.00, Inventory: 3
+Home Theater PC: $800.00, Inventory: 4
+Gaming Laptop: $1000.00, Inventory: 2
+Home Server: $700.00, Inventory: 3
+These are saved in the ProductRepository.
+
+Output Statements:
+
+Displays the number of products and parts in the database.
+Prints details of all products and parts.
 
 
 F.  Add a “Buy Now” button to your product list. Your “Buy Now” button must meet each of the following parameters:
