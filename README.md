@@ -364,3 +364,11 @@ assertEquals(min_inv,partOut.getMinInv());
 Change: Implemented unit tests to validate inventory constraints in PartTest.java.
 
 J.  Remove the class files for any unused validators in order to clean your code.
+
+DELETED unused validator:
+
+filename: DeletePartValidator.java
+
+and
+
+filename: ValidDeletePart.java
