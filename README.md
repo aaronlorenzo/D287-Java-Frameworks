@@ -26,7 +26,8 @@ Lines 1 - 128: Created a new "About" page with company information and navigatio
 
 E.  Add a sample inventory appropriate for your chosen store to the application. You should have five parts and five products in your sample inventory and should not overwrite existing data in the database.
 
-Changes Made in BootstrapData.java line 36-159:
+Changes Made in BootstrapData.java 
+line 36-159:
 
 Cleared Existing Data:
 
@@ -322,6 +323,44 @@ Line 93-96: <div th:if="${#fields.hasErrors()}">
 </div>
 
 I.  Add at least two unit tests for the maximum and minimum fields to the PartTest class in the test package.
+File Name: PartTest.java
+Line Number: 159-193
+@Test
+void getMinInv() {
+int min_inv=0;
+partIn.setMinInv(min_inv);
+assertEquals(min_inv,partIn.getMinInv());
+partOut.setMinInv(min_inv);
+assertEquals(min_inv,partOut.getMinInv());
+}
 
+    @Test
+    void setMinInv() {
+        int min_inv=0;
+        partIn.setMinInv(min_inv);
+        assertEquals(min_inv,partIn.getMinInv());
+        partOut.setMinInv(min_inv);
+        assertEquals(min_inv,partOut.getMinInv());
+    }
+
+    @Test
+    void getMaxInv() {
+        int max_inv=101;
+        partIn.setMaxInv(max_inv);
+        assertEquals(max_inv,partIn.getMaxInv());
+        partOut.setMaxInv(max_inv);
+        assertEquals(max_inv,partOut.getMaxInv());
+    }
+
+    @Test
+    void setMaxInv() {
+        int max_inv=101;
+        partIn.setMaxInv(max_inv);
+        assertEquals(max_inv,partIn.getMaxInv());
+        partOut.setMaxInv(max_inv);
+        assertEquals(max_inv,partOut.getMaxInv());
+    }
+}
+Change: Implemented unit tests to validate inventory constraints in PartTest.java.
 
 J.  Remove the class files for any unused validators in order to clean your code.
