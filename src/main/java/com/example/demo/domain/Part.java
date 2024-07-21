@@ -1,10 +1,11 @@
 package com.example.demo.domain;
 
-import com.example.demo.validators.ValidDeletePart;
+import com.example.demo.validators.ValidMaximum;
+import com.example.demo.validators.ValidMinimum;
 
 import javax.persistence.*;
-import javax.validation.constraints.Max;
 import javax.validation.constraints.Min;
+import javax.validation.constraints.Max;
 import java.io.Serializable;
 import java.util.HashSet;
 import java.util.Set;
@@ -16,9 +17,11 @@ import java.util.Set;
  *
  */
 @Entity
-@ValidDeletePart
+@ValidMinimum
+@ValidMaximum
 @Inheritance(strategy = InheritanceType.SINGLE_TABLE)
 @DiscriminatorColumn(name="part_type",discriminatorType = DiscriminatorType.INTEGER)
+
 @Table(name="Parts")
 public abstract class Part implements Serializable {
     @Id
@@ -29,12 +32,10 @@ public abstract class Part implements Serializable {
     double price;
     @Min(value = 0, message = "Inventory value must be positive")
     int inv;
-
     @Min(value = 0, message = "Minimum inventory value must be positive")
     int minInv;
-
     @Min(value = 0, message = "Maximum inventory must be positive")
-    @Max(value = 100, message = "Maximum inventory value must fall within set maximum")
+    @Max(value = 200, message = "Maximum inventory value must fall within set maximum")
     int maxInv;
 
     @ManyToMany
@@ -43,25 +44,23 @@ public abstract class Part implements Serializable {
     Set<Product> products= new HashSet<>();
 
     public Part() {
-        this.minInv = 0; // default minimum inventory = 0
-        this.maxInv = 100; // default maximum inventory = 100
     }
 
     public Part(String name, double price, int inv) {
         this.name = name;
         this.price = price;
         this.inv = inv;
-        this.minInv = 0; // default minimum inventory = 0
-        this.maxInv = 100; // default maximum inventory = 100
+        this.minInv = 0; //default minimum inventory = 0;
+        this.maxInv = 100; //default minimum inventory = 100;
     }
 
-    public Part(long id, String name, double price, int inv) {
+    public Part(long id, String name, double price, int inv, int minInv, int maxInv) {
         this.id = id;
         this.name = name;
         this.price = price;
         this.inv = inv;
-        this.minInv = 0; // default minimum inventory = 0
-        this.maxInv = 100; // default maximum inventory = 100
+        this.minInv = minInv;  //setting default value
+        this.maxInv = maxInv; //setting default value
     }
 
     public long getId() {
@@ -96,6 +95,14 @@ public abstract class Part implements Serializable {
         this.inv = inv;
     }
 
+    public Set<Product> getProducts() {
+        return products;
+    }
+
+    public void setProducts(Set<Product> products) {
+        this.products = products;
+    }
+
     public int getMinInv() {
         return minInv;
     }
@@ -108,30 +115,11 @@ public abstract class Part implements Serializable {
         return maxInv;
     }
 
-    public void setMaxInv(int maxInv) {
-        this.maxInv = maxInv;
-    }
-
-    public Set<Product> getProducts() {
-        return products;
-    }
-
-    public void setProducts(Set<Product> products) {
-        this.products = products;
-    }
+    public void setMaxInv(int maxInv) { this.maxInv = maxInv; }
 
     public String toString(){
         return this.name;
     }
-
-    public void validateLimits() {
-        if (this.inv < this.minInv) {
-            throw new RuntimeException("This value falls below required minimum.");
-        } else if (this.inv > this.maxInv) {
-            throw new RuntimeException("This value exceeds the allowed maximum.");
-        }
-    }
-
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
@@ -140,6 +128,14 @@ public abstract class Part implements Serializable {
         Part part = (Part) o;
 
         return id == part.id;
+    }
+
+    public void validateLimits() {
+        if (this.inv < this.minInv) {
+            throw new RuntimeException("This value falls below required minimum.");
+        } else if (this.inv > this.maxInv) {
+            throw new RuntimeException("This value exceeds the allowed maximum.");
+        }
     }
 
     @Override

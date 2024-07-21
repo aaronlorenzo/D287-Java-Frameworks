@@ -19,6 +19,7 @@ import java.util.Set;
 @Table(name="Products")
 @ValidProductPrice
 @ValidEnufParts
+
 public class Product implements Serializable {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
